@@ -8,32 +8,33 @@ library(dplyr)
 
 # Define UI for application that draws a histogram-------------------------
 ui <- shinyUI(
-    dashboardPage(title = "Demo app", skin = "red",
-                  dashboardHeader(title = "Diamonds vs Cars"),
+    dashboardPage(title = "Demo app", skin = "red", #colour of the app
+                  dashboardHeader(title = "Diamonds vs Cars"), #title of the dashboard that appears on top
                   dashboardSidebar(
                     #questo pezzo mi inserisce sezioni nella sidebar
                       sidebarMenu(
-                          menuItem("Diamonds analytics",tabName = "diamonds", icon = icon("gem")),
-                          menuItem("Car analytics", tabName = "mpg", icon = icon("car")), 
+                          menuItem("Diamonds analytics",tabName = "diamonds", icon = icon("gem")), #queste sono le sezioni che compaiono nella sidebar a sinistra
+                          menuItem("Car analytics", tabName = "mpg", icon = icon("car")), #icon = icon('id dell'icona presa su fontawsome')
                           menuItem("Bhoooo", tabName = 'ciao', icon = icon('hand-spock')) 
                       )
                   ),
                   dashboardBody(
+                      #qua inizia la sezione dove richiamo le macrosezioni che trovo nella sidebar della dashboard
                       tabItems(
                           #1) diamonds tabs
                           tabItem(
-                              tabName = "diamonds",
+                              tabName = "diamonds", #diamonds è l'id della sezione 'Diamonds analytics' vedi sopra
                               tabsetPanel(
                                   type = "tab",
-                                  tabPanel("Data", 
-                                           fluidRow(
+                                  tabPanel("Data", #nome del tab che faccio comparire in cima alla sezione Diamonds Analytics
+                                           fluidRow( #fluidrow serve per definire il layout, tutto quello che sta in uno stesso fluidrow vuol dire che sta in una solita riga 
                                              box(selectInput("variable", "Filter columns:", 
                                                                                         c("Carat" = "carat", 
                                                                                           "Cut of the diamond" = "cut",
                                                                                           "Color" = "color",
                                                                                           "Clarity" = "clarity",
                                                                                           "Depth" = "depth"), selectize = TRUE, multiple = TRUE), width = 12),
-                                             box(tableOutput("diamonds"), width = 12),
+                                             box(tableOutput("diamonds"), width = 12), #width indica quanto è larga la box, width va da 1 a 12
                                              box(h3("Summary of the data"),verbatimTextOutput("Summ"), width = 12)
                                            )
                                     ),
